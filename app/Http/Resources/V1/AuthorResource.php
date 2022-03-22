@@ -6,6 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class AuthorResource extends JsonResource
 {
+    public static $wrap = 'authors';
     /**
      * Transform the resource into an array.
      *
@@ -14,6 +15,13 @@ class AuthorResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'type'     =>'people',
+            'id'       =>$this->id(),
+            'name'     =>$this->name(),
+            'links'    =>[
+                'self' => route('authors',$this->id())
+            ],
+        ];
     }
 }

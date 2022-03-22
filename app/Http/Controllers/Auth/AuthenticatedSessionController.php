@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Auth\LoginRequest;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -21,7 +21,19 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return response()->noContent();
+        $user  = auth()->user();
+
+        $name  = $user->name();
+        $token = $user->createToken($name)->plainTextToken;
+
+        return response()->json([
+            'success' => true,
+            'date'    =>[
+                'token'  =>$token,
+                'name'   =>$name
+            ],
+            'message' => 'User logged in success'
+        ]);
     }
 
     /**

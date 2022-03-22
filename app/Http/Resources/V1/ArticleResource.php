@@ -19,15 +19,15 @@ class ArticleResource extends JsonResource
             'type'          =>'articles',
             'id'            =>$this->id(),
             'attributes'    => [
-                'title' =>$this->title(),
-                'slug'  =>$this->slug(),
-                'created_at'=>$this->created_at
+                'title'       =>$this->title(),
+                'slug'        =>$this->slug(),
+                'created_at'  =>$this->created_at
             ],
             'relationships' =>[
-                'author'=>AuthorResource::make($this->author)
+                'author'=>AuthorResource::make($this->author())
             ],
             'links'         =>[
-                'self'  =>route('articles.show',$this->id()),
+                'self'   =>route('articles.show',$this->id()),
                 'related'=>route('articles.show',$this->slug())
             ]
 

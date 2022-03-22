@@ -14,6 +14,7 @@ class Article extends Model
     use ModelHelpers;
 
     protected $table ='articles';
+
     protected $fillable = [
         'title',
         'slug',
